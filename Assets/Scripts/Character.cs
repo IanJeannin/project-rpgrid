@@ -20,4 +20,8 @@ public class Character : MonoBehaviour
     {
         actionPoints = actionPoints + adjustment;
     }
+    public void UpdateAP(int update)
+    {
+        actionPoints = update;
+    }
 }
