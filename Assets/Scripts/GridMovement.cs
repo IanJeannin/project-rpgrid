@@ -11,15 +11,33 @@ public class GridMovement : MonoBehaviour
     [Tooltip("How long to pause movement for after a move.")]
     [SerializeField]
     private float pauseMovementTime;
+    [Tooltip("The character script attached to the game object.")]
+    [SerializeField]
+    private Character movingCharacter;
+    [Tooltip("How much AP each square of movement costs.")]
+    [SerializeField]
+    private int movementCost=1;
 
     private bool pauseMovement = false; //Prevents movement while true
+    private bool startOfTurn = true; //Will mark whether or not a turn has started and AP should be determined
     private float xMovement = 0; //Marks if player is moving horizontally
     private float yMovement = 0; //Marks if player is moving vertically
+    private int tempAP; //Will store the AP used so far in the turn. 
+    private List<Vector2> tilesMovedOn = new List<Vector2>(); //Stores the positions of the tiles already moved on
 
     private void FixedUpdate()
     {
         xMovement = Input.GetAxisRaw("Horizontal");
         yMovement = Input.GetAxisRaw("Vertical");
+
+        //At start of turn, AP of the character is stored in a temporary variable
+        if(startOfTurn==true)
+        {
+            startOfTurn = false;
+            Vector2 startingPosition = new Vector2(transform.position.x, transform.position.y);
+            tilesMovedOn.Add(startingPosition); //Adds starting position to list of tiles moved on this turn. (This is so if the player moves back to their starting position, their ap used during movement will be restored)
+            tempAP = movingCharacter.GetAP();
+        }
 
         if (pauseMovement != true)
         {
@@ -49,11 +67,34 @@ public class GridMovement : MonoBehaviour
     { 
         //Marks the position of where the object is moving to. 
         Vector2 newPosition = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
-        if (groundTilemap.GetTile(groundTilemap.WorldToCell(newPosition))!=null)
+        if (groundTilemap.GetTile(groundTilemap.WorldToCell(newPosition))!=null) //If the space being moved to is not empty
         {
-            transform.position = newPosition;
+            if (tilesMovedOn.Contains(newPosition)) //If the space being moved to has already been passed through on this turn
+            {
+                int index = tilesMovedOn.IndexOf(newPosition); //Finds index of space in list
+                //Removes all spaces from list up to the space being moved back onto, and restores AP up to however much was used to get to this space originally.
+                for(int x=tilesMovedOn.Count-1; x>index; x--)
+                {
+                    tilesMovedOn.RemoveAt(x); 
+                    tempAP += movementCost;
+                }
+                transform.position = newPosition; //Move the character to the tile
+            }
+            else if(tempAP>0) //Makes sure there is still ap remaining before moving to a new space
+            {
+                tilesMovedOn.Add(newPosition); //add the position of the tile moved on to the list
+                transform.position = newPosition; //Move the character to the tile
+                tempAP -= movementCost; //Subtract the cost of movement from this turns AP use. 
+            }
+            Debug.Log(tempAP);
         }
         StartCoroutine(PauseMovement());
+    }
+
+    //Iterates through list of 
+    private void CheckList()
+    {
+
     }
 
     private void ClickMove(Vector3Int destination)
