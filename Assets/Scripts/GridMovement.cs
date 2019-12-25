@@ -14,6 +14,8 @@ public class GridMovement : MonoBehaviour
     [Tooltip("The character script attached to the game object.")]
     [SerializeField]
     private Character movingCharacter;
+    [SerializeField]
+    private Enemy closeEnemy;
     [Tooltip("How much AP each square of movement costs.")]
     [SerializeField]
     private int movementCost=1;
@@ -87,6 +89,11 @@ public class GridMovement : MonoBehaviour
                 transform.position = newPosition; //Move the character to the tile
                 tempAP -= movementCost; //Subtract the cost of movement from this turns AP use.
                 movingCharacter.UpdateAP(tempAP);
+                if (movingCharacter.GetPositionX()==closeEnemy.GetPositionX()-1)
+                {
+                    tempAP = 0;
+                    movingCharacter.UpdateAP(tempAP);
+                }
             }
             Debug.Log(tempAP);
         }

@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     [Tooltip("How many Action Points the character starts with.")]
     [SerializeField]
     private int actionPoints=5;
+    public float number;
 
     public int GetAP()
     {
@@ -23,5 +24,13 @@ public class Character : MonoBehaviour
     public void UpdateAP(int update)
     {
         actionPoints = update;
+    }
+    public float GetPositionX()
+    {
+        return transform.position.x;
+    }
+    public float GetPositionY()
+    {
+        return transform.position.y;
     }
 }
