@@ -19,6 +19,8 @@ public class GridMovement : MonoBehaviour
     [Tooltip("How much AP each square of movement costs.")]
     [SerializeField]
     private int movementCost=1;
+    [SerializeField]
+    private SwordDamage swordattack;
 
     private bool pauseMovement = false; //Prevents movement while true
     private bool startOfTurn = true; //Will mark whether or not a turn has started and AP should be determined
@@ -93,6 +95,7 @@ public class GridMovement : MonoBehaviour
                 {
                     tempAP = 0;
                     movingCharacter.UpdateAP(tempAP);
+                    swordattack.EnemyDamage(closeEnemy);
                 }
             }
             Debug.Log(tempAP);
