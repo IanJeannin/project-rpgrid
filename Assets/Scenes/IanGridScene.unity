@@ -473,6 +473,7 @@ GameObject:
   - component: {fileID: 129890033}
   - component: {fileID: 129890032}
   - component: {fileID: 129890034}
+  - component: {fileID: 129890035}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -514,8 +515,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 681507937
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 18e31b5c0db41c045ac219221edcbeb7, type: 3}
   m_Color: {r: 0.764151, g: 0.09011213, b: 0.09011213, a: 1}
@@ -536,7 +537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129890031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.34, y: -0.57, z: 0}
+  m_LocalPosition: {x: 2.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -557,7 +558,22 @@ MonoBehaviour:
   groundTilemap: {fileID: 0}
   pauseMovementTime: 0
   movingCharacter: {fileID: 0}
+  closeEnemy: {fileID: 0}
   movementCost: 1
+--- !u!114 &129890035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129890031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755360c962e5c95459f4c13d6597366a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 10
+  actionPoints: 5
 --- !u!1 &261591073
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,6 +670,7 @@ MonoBehaviour:
   groundTilemap: {fileID: 1272747417}
   pauseMovementTime: 0.2
   movingCharacter: {fileID: 261591077}
+  closeEnemy: {fileID: 129890035}
   movementCost: 1
 --- !u!114 &261591077
 MonoBehaviour:
@@ -669,6 +686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 10
   actionPoints: 5
+  number: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
