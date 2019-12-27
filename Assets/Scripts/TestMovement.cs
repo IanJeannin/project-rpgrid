@@ -22,6 +22,9 @@ public class TestMovement : MonoBehaviour
     private int movementCost = 1;
     [SerializeField]
     private Pathfinding pathfinding;
+    [Tooltip("The empty game object that will contain all instantiated path markers.")]
+    [SerializeField]
+    private GameObject pathMarkers;
 
     //private Pathfinding pathfinding; //A copy of the pathfinding script for reference
     private bool pauseMovement = false; //Prevents movement while true
@@ -60,23 +63,29 @@ public class TestMovement : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
+            foreach (Transform child in pathMarkers.transform)
+            {
+                Destroy(child.gameObject);
+            }
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (groundTilemap.GetTile(groundTilemap.WorldToCell(mousePosition)) != null)
             {
                 Vector3 startingPosition = new Vector3(transform.position.x, transform.position.y);
                 Vector3Int endTilePosition = groundTilemap.WorldToCell(mousePosition);
                 Vector3 endPosition = groundTilemap.GetCellCenterWorld(endTilePosition);
-                List<Vector3> shortestPath=pathfinding.FindShortestPath(startingPosition, endPosition);
-                if(shortestPath!=null)
+                if (startingPosition != endPosition) //Ensure the player can't click the same tile they are on. 
                 {
-                    foreach(Vector3 tile in shortestPath)
+                    List<Vector3> shortestPath = pathfinding.FindShortestPath(startingPosition, endPosition);
+                    if (shortestPath != null)
                     {
-                        Instantiate(passedTile,tile,transform.rotation);
+                        foreach (Vector3 tile in shortestPath)
+                        {
+                            Instantiate(passedTile, tile, transform.rotation, pathMarkers.transform);
+                        }
+                        Vector3Int tilePosition = groundTilemap.WorldToCell(mousePosition);
+                        ClickMove(tilePosition);
                     }
-                    Vector3Int tilePosition = groundTilemap.WorldToCell(mousePosition);
-                    ClickMove(tilePosition);
                 }
-                
             }
         }
     }
