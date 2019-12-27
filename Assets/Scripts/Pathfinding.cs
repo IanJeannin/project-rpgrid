@@ -8,11 +8,10 @@ public class Pathfinding : MonoBehaviour
     [SerializeField]
     private Tilemap groundTilemap;
 
-    private IDictionary<Vector3, Vector3> tileParents = new Dictionary<Vector3, Vector3>();
-
     //After finding the shortest path, check how much movement it took in GridMovement, and if it takes too much ap, don't move.
-    List<Vector3> FindShortestPath(Vector3 startPosition, Vector3 endPosition)
+    public List<Vector3> FindShortestPath(Vector3 startPosition, Vector3 endPosition)
     {
+        IDictionary<Vector3, Vector3> tileParents = new Dictionary<Vector3, Vector3>();
         List<Vector3> path = new List<Vector3>();
         Queue<Vector3> queue = new Queue<Vector3>();
         HashSet<Vector3> exploredTiles = new HashSet<Vector3>();
@@ -47,22 +46,23 @@ public class Pathfinding : MonoBehaviour
         return null; //If no path is found, returns null
     }
 
-    List<Vector3> GetPossibleTiles(Vector3 currentTile)
+    public List<Vector3> GetPossibleTiles(Vector3 currentTile)
     {
         //Adds every adjacent tile to a list
-        List<Vector3> walkableTiles = new List<Vector3>()
+        List<Vector3> possibleTiles = new List<Vector3>()
         {
             new Vector3 (currentTile.x+1,currentTile.y),
             new Vector3 (currentTile.x-1,currentTile.y),
             new Vector3 (currentTile.x,currentTile.y+1),
             new Vector3 (currentTile.x,currentTile.y-1)
         };
+        List<Vector3> walkableTiles=new List<Vector3>();
 
-        foreach(Vector3 tile in walkableTiles) //Checks every adjacent tile to ensure it is walkable, if not, removes it from the list
+        foreach(Vector3 tile in possibleTiles) //Checks every adjacent tile to ensure it is walkable, if not, removes it from WalkableTiles
         {
-            if(groundTilemap.GetTile(groundTilemap.WorldToCell(tile)) == null)
+            if(groundTilemap.GetTile(groundTilemap.WorldToCell(tile)) != null)
             {
-                walkableTiles.Remove(tile);
+                walkableTiles.Add(tile);
             }
         }
         return walkableTiles;

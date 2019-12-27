@@ -14,10 +14,16 @@ public class TestMovement : MonoBehaviour
     [Tooltip("The character script attached to the game object.")]
     [SerializeField]
     private Character movingCharacter;
+    [Tooltip("The game object or prefab that marks a tile in the path.")]
+    [SerializeField]
+    private GameObject passedTile;
     [Tooltip("How much AP each square of movement costs.")]
     [SerializeField]
     private int movementCost = 1;
+    [SerializeField]
+    private Pathfinding pathfinding;
 
+    //private Pathfinding pathfinding; //A copy of the pathfinding script for reference
     private bool pauseMovement = false; //Prevents movement while true
     private bool startOfTurn = true; //Will mark whether or not a turn has started and AP should be determined
     private float xMovement = 0; //Marks if player is moving horizontally
@@ -57,8 +63,20 @@ public class TestMovement : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (groundTilemap.GetTile(groundTilemap.WorldToCell(mousePosition)) != null)
             {
-                Vector3Int tilePosition = groundTilemap.WorldToCell(mousePosition);
-                ClickMove(tilePosition);
+                Vector3 startingPosition = new Vector3(transform.position.x, transform.position.y);
+                Vector3Int endTilePosition = groundTilemap.WorldToCell(mousePosition);
+                Vector3 endPosition = groundTilemap.GetCellCenterWorld(endTilePosition);
+                List<Vector3> shortestPath=pathfinding.FindShortestPath(startingPosition, endPosition);
+                if(shortestPath!=null)
+                {
+                    foreach(Vector3 tile in shortestPath)
+                    {
+                        Instantiate(passedTile);
+                    }
+                    Vector3Int tilePosition = groundTilemap.WorldToCell(mousePosition);
+                    ClickMove(tilePosition);
+                }
+                
             }
         }
     }

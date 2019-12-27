@@ -472,8 +472,9 @@ GameObject:
   m_Component:
   - component: {fileID: 261591075}
   - component: {fileID: 261591074}
-  - component: {fileID: 261591076}
   - component: {fileID: 261591077}
+  - component: {fileID: 261591078}
+  - component: {fileID: 261591076}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -552,13 +553,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 261591073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7791172f8d1d8e4295c5cb4bbfe270b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dea09adc92720249bad98624fd83397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 1272747417}
   pauseMovementTime: 0.2
   movingCharacter: {fileID: 261591077}
+  passedTile: {fileID: 3544981003849232199, guid: 914a3835f5700ff45ae4124c1b1a23da,
+    type: 3}
   movementCost: 1
+  pathfinding: {fileID: 261591078}
 --- !u!114 &261591077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +577,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 10
   actionPoints: 5
+--- !u!114 &261591078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261591073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6080d1832c996a42b33493c41bfcd1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTilemap: {fileID: 1272747417}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,15 +1021,6 @@ Tilemap:
       m_TileFlags: 1
       m_ColliderType: 1
   - first: {x: -3, y: -2, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: -2, z: 0}
     second:
       m_TileIndex: 2
       m_TileSpriteIndex: 2
@@ -1459,18 +1467,18 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 74
+  - m_RefCount: 73
     m_Data: {fileID: 11400000, guid: f5fa7a3252ff4da48b80475341b8a21d, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 74
+  - m_RefCount: 73
     m_Data: {fileID: -4300181691872678379, guid: 2a354970c85d4bb469b6fb809a0a7e1e,
       type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 74
+  - m_RefCount: 73
     m_Data:
       e00: 1
       e01: 0
@@ -1525,7 +1533,7 @@ Tilemap:
       e32: 0
       e33: 0
   m_TileColorArray:
-  - m_RefCount: 74
+  - m_RefCount: 73
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
