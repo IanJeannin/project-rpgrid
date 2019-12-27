@@ -71,7 +71,7 @@ public class TestMovement : MonoBehaviour
                 {
                     foreach(Vector3 tile in shortestPath)
                     {
-                        Instantiate(passedTile);
+                        Instantiate(passedTile,tile,transform.rotation);
                     }
                     Vector3Int tilePosition = groundTilemap.WorldToCell(mousePosition);
                     ClickMove(tilePosition);

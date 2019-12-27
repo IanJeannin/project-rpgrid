@@ -24,7 +24,7 @@ public class Pathfinding : MonoBehaviour
             if(currentTile==endPosition)
             {
                 Vector3 current = endPosition;
-                while(!tileParents.ContainsKey(startPosition)) //Starting from the end, marks every tile in the path until the start is marked
+                while(!path.Contains(startPosition)) //Starting from the end, marks every tile in the path until the start is marked
                 {
                     path.Add(current);
                     current = tileParents[current];
