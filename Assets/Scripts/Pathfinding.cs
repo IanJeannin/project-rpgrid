@@ -49,6 +49,7 @@ public class Pathfinding : MonoBehaviour
 
     List<Vector3> GetPossibleTiles(Vector3 currentTile)
     {
+        //Adds every adjacent tile to a list
         List<Vector3> walkableTiles = new List<Vector3>()
         {
             new Vector3 (currentTile.x+1,currentTile.y),
@@ -57,7 +58,7 @@ public class Pathfinding : MonoBehaviour
             new Vector3 (currentTile.x,currentTile.y-1)
         };
 
-        foreach(Vector3 tile in walkableTiles)
+        foreach(Vector3 tile in walkableTiles) //Checks every adjacent tile to ensure it is walkable, if not, removes it from the list
         {
             if(groundTilemap.GetTile(groundTilemap.WorldToCell(tile)) == null)
             {
