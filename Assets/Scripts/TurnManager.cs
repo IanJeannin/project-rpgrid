@@ -16,11 +16,18 @@ public class TurnManager : MonoBehaviour
 
     private int lastFirstEnemyIndex; //Stores index of the first enemy to move
     private int lastSecondEnemyIndex; //Stores index of the second enemy to move
-    private List<int> turnOrder;
+    private int currentObjectsTurn; //Stores the index of the index of the object whose turn it is
+    private List<GameObject> currentTurnOrder;
+
+    private void Start()
+    {
+        currentTurnOrder=SetOrder();
+    }
 
     //returns a list of the active game objects in turn order. 
     public List<GameObject> SetOrder()
     {
+        currentObjectsTurn = 0;
         GameObject firstCharacter;
         GameObject secondCharacter;
         int numberOfEnemies = enemies.Count;
@@ -93,5 +100,17 @@ public class TurnManager : MonoBehaviour
             enemies[secondEnemyIndex]
         };
         return turnOrder;
+    }
+
+    public void NextTurn() //Sets the objects whose turn it is. If the last object has moved, sets a new turn order. 
+    {
+        if(currentObjectsTurn==3)
+        {
+            SetOrder();
+        }
+        else
+        {
+            currentObjectsTurn++;
+        }
     }
 }

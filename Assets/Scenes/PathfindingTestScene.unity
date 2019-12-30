@@ -494,7 +494,9 @@ MonoBehaviour:
   enemies:
   - {fileID: 347297073}
   - {fileID: 1367064784}
-  characters: []
+  characterOne: {fileID: 261591073}
+  characterTwo: {fileID: 261591073}
+  apWeight: 0
 --- !u!4 &118594205
 Transform:
   m_ObjectHideFlags: 0
@@ -641,6 +643,7 @@ MonoBehaviour:
   movementCost: 1
   pathfinding: {fileID: 261591078}
   pathMarkers: {fileID: 161095326}
+  turnManager: {fileID: 118594203}
 --- !u!114 &261591077
 MonoBehaviour:
   m_ObjectHideFlags: 0
