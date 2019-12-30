@@ -87,13 +87,13 @@ public class TestMovement : MonoBehaviour
                     if (startingPosition != endPosition) //Ensure the player can't click the same tile they are on. 
                     {
                         List<Vector3> shortestPath = pathfinding.FindShortestPath(startingPosition, endPosition);
-                        if (shortestPath != null&&shortestPath.Count<=tempAP) //Does not move if there is no path or the tile is out of range
+                        if (shortestPath != null&&shortestPath.Count-1<=tempAP) //Does not move if there is no path or the tile is out of range
                         {
                             foreach (Vector3 tile in shortestPath)
                             {
                                 Instantiate(passedTile, tile, transform.rotation, pathMarkers.transform);
                             }
-                            tempAP=shortestPath.Count - 1;
+                            tempAP-=shortestPath.Count - 1;
                             Vector3Int tilePosition = groundTilemap.WorldToCell(mousePosition);
                             ClickMove(tilePosition);
                             Debug.Log("CurrentAP: " + tempAP);
