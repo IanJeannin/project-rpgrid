@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class GridMovement : MonoBehaviour
 {
@@ -14,9 +15,13 @@ public class GridMovement : MonoBehaviour
     [Tooltip("The character script attached to the game object.")]
     [SerializeField]
     private Character movingCharacter;
+    [SerializeField]
+    private Enemy closeEnemy;
     [Tooltip("How much AP each square of movement costs.")]
     [SerializeField]
     private int movementCost=1;
+    [SerializeField]
+    private bool NextToEnemy = false;
 
     private bool pauseMovement = false; //Prevents movement while true
     private bool startOfTurn = true; //Will mark whether or not a turn has started and AP should be determined
@@ -77,6 +82,7 @@ public class GridMovement : MonoBehaviour
                 {
                     tilesMovedOn.RemoveAt(x); 
                     tempAP += movementCost;
+                    movingCharacter.UpdateAP(tempAP);
                 }
                 transform.position = newPosition; //Move the character to the tile
             }
@@ -84,7 +90,18 @@ public class GridMovement : MonoBehaviour
             {
                 tilesMovedOn.Add(newPosition); //add the position of the tile moved on to the list
                 transform.position = newPosition; //Move the character to the tile
-                tempAP -= movementCost; //Subtract the cost of movement from this turns AP use. 
+                tempAP -= movementCost; //Subtract the cost of movement from this turns AP use.
+                movingCharacter.UpdateAP(tempAP); //updates the character stat of current ap left
+
+                if (CheckForEnemiesInMeleeRange())//checks if there is an enemy within melee range
+                {
+                    NextToEnemy = true;
+                    movingCharacter.PushAttack();
+                }
+                else
+                {
+                    NextToEnemy=false;
+                }
             }
             Debug.Log(tempAP);
         }
@@ -109,5 +126,14 @@ public class GridMovement : MonoBehaviour
         yield return new WaitForSeconds(pauseMovementTime);
         pauseMovement = false;
 
+    }
+    //Checks if there is an enemy within melee range of character, returns false if not
+    private bool CheckForEnemiesInMeleeRange()
+    {
+        if (movingCharacter.GetPositionX() == closeEnemy.GetPositionX() - 1 ||
+            movingCharacter.GetPositionX() == closeEnemy.GetPositionX() + 1 ||
+            movingCharacter.GetPositionY() == closeEnemy.GetPositionY() - 1 ||
+            movingCharacter.GetPositionY() == closeEnemy.GetPositionY() + 1) return true;
+        else { return false; }
     }
 }
