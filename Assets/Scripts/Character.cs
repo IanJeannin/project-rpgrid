@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    //basic stats
     [Tooltip("How much health the character starts with.")]
     [SerializeField]
     private float hitPoints=10;
     [Tooltip("How many Action Points the character starts with.")]
     [SerializeField]
     private int actionPoints=5;
-    public float number;
+    [SerializeField]
+    private float damage = 1;
+    [SerializeField]
+    private float defense = 1;
+    [SerializeField]
+    private int Dodge = 30;
 
     public int GetAP()
     {
@@ -32,5 +38,13 @@ public class Character : MonoBehaviour
     public float GetPositionY()
     {
         return transform.position.y;
+    }
+    public void TakeDamage(int AppliedDamage)
+    {
+        ChanceToHit = Random.Range(0.0f, 100.0f);
+        if (ChanceToHit>=Dodge && AppliedDamage<defense)
+        {
+            health = health - AppliedDamage;
+        }
     }
 }
