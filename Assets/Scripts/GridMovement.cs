@@ -96,10 +96,12 @@ public class GridMovement : MonoBehaviour
                 if (CheckForEnemiesInMeleeRange())//checks if there is an enemy within melee range
                 {
                     NextToEnemy = true;
-                    movingCharacter.UpdateAP(tempAP);
-                    movingCharacter.TakeDamage(3);
+                    movingCharacter.PushAttack();
                 }
-                else { NextToEnemy = false; }
+                else
+                {
+                    NextToEnemy=false;
+                }
             }
             Debug.Log(tempAP);
         }
