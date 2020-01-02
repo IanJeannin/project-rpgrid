@@ -526,7 +526,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &129890033
@@ -560,6 +560,7 @@ MonoBehaviour:
   movingCharacter: {fileID: 0}
   closeEnemy: {fileID: 0}
   movementCost: 1
+  NextToEnemy: 0
 --- !u!114 &129890035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,6 +575,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 10
   actionPoints: 5
+  damage: 1
+  defense: 1
+  Dodge: 0
 --- !u!1 &261591073
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +676,7 @@ MonoBehaviour:
   movingCharacter: {fileID: 261591077}
   closeEnemy: {fileID: 129890035}
   movementCost: 1
+  NextToEnemy: 0
 --- !u!114 &261591077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,7 +691,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 10
   actionPoints: 5
-  number: 0
+  damage: 1
+  defense: 1
+  Dodge: 30
+  enemy: {fileID: 129890035}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
