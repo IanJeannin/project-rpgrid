@@ -16,7 +16,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     private float defense = 1;
     [SerializeField]
-    private int Dodge = 0;
+    private int dodge = 0;
     [SerializeField]
     private Enemy enemy;
 
@@ -41,12 +41,12 @@ public class Character : MonoBehaviour
     {
         return transform.position.y;
     }
-    public void TakeDamage(float AppliedDamage)
+    public void TakeDamage(float appliedDamage)
     {
         float ChanceToHit = Random.Range(0.0f, 100.0f);
-        if (ChanceToHit>=Dodge && AppliedDamage>defense)
+        if (ChanceToHit>=dodge && appliedDamage>defense)
         {
-            hitPoints = hitPoints - (AppliedDamage-defense);
+            hitPoints = hitPoints - (appliedDamage-defense);
         }
     }
 
@@ -80,4 +80,8 @@ public class Character : MonoBehaviour
     //    AdjustAP(-5);
     //}
 
+    public int GetDodge()
+    {
+        return dodge;
+    }
 }
