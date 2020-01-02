@@ -76,7 +76,7 @@ public class Pathfinding : MonoBehaviour
         return walkableTiles;
     }
 
-    public static int CheckRange(Vector3 start, Vector3 end)
+    public int CheckRange(Vector3 start, Vector3 end)
     {
         isRangedAttack = true;
         int shortestRange = FindShortestPath(start, end).Count;

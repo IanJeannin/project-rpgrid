@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RangeAttack : Attack
 {
+    private Pathfinding pathfinding;
     private int range;
     public RangeAttack(int newDamage,int newAccuracy, int newRange):base(newDamage,newAccuracy)
     {
@@ -14,7 +15,7 @@ public class RangeAttack : Attack
 
     public void MakeAttack(Character attacker, Enemy defender)
     {
-        int numberOfSpaces = Pathfinding.CheckRange(attacker.transform.position, defender.transform.position);
+        int numberOfSpaces = pathfinding.CheckRange(attacker.transform.position, defender.transform.position);
         if(numberOfSpaces<=range)
         {
             MakeAttack(defender);
@@ -23,7 +24,7 @@ public class RangeAttack : Attack
 
     public void MakeAttack(Enemy attacker, Character defender)
     {
-        int numberOfSpaces = Pathfinding.CheckRange(attacker.transform.position, defender.transform.position);
+        int numberOfSpaces = pathfinding.CheckRange(attacker.transform.position, defender.transform.position);
         if (numberOfSpaces <= range)
         {
             MakeAttack(defender);
