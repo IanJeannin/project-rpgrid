@@ -8,6 +8,8 @@ public class Pathfinding : MonoBehaviour
     [SerializeField]
     private Tilemap groundTilemap;
 
+    private bool isRangedAttack = false; //Will be used to ignore null tiles in GetPossibleTiles when determining range
+
     //After finding the shortest path, check how much movement it took in GridMovement, and if it takes too much ap, don't move.
     public List<Vector3> FindShortestPath(Vector3 startPosition, Vector3 endPosition)
     {
@@ -61,13 +63,24 @@ public class Pathfinding : MonoBehaviour
         };
         List<Vector3> walkableTiles=new List<Vector3>();
 
-        foreach(Vector3 tile in possibleTiles) //Checks every adjacent tile to ensure it is walkable, if not, removes it from WalkableTiles
+        if (!isRangedAttack == true)
         {
-            if(groundTilemap.GetTile(groundTilemap.WorldToCell(tile)) != null)
+            foreach (Vector3 tile in possibleTiles) //Checks every adjacent tile to ensure it is walkable, if not, removes it from WalkableTiles
             {
-                walkableTiles.Add(tile);
+                if (groundTilemap.GetTile(groundTilemap.WorldToCell(tile)) != null)
+                {
+                    walkableTiles.Add(tile);
+                }
             }
         }
         return walkableTiles;
+    }
+
+    public static int CheckRange(Vector3 start, Vector3 end)
+    {
+        isRangedAttack = true;
+        int shortestRange = FindShortestPath(start, end).Count;
+        isRangedAttack = false;
+        return shortestRange;
     }
 }
