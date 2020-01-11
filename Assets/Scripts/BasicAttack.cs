@@ -5,7 +5,7 @@ using UnityEngine;
 public class BasicAttack : Attack
 {
     private Pathfinding pathfinding;
-    private int range;
+    protected int range;
 
     public BasicAttack(int newDamage, int newAccuracy, int newRange) : base(newDamage, newAccuracy)
     {

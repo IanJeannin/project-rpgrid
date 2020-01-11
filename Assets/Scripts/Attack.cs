@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack
+public class Attack : MonoBehaviour
 {
     protected int damage;
     protected float accuracy;

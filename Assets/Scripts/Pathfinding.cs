@@ -83,4 +83,17 @@ public class Pathfinding : MonoBehaviour
         isRangedAttack = false;
         return shortestRange;
     }
+
+    public List<Vector3> GetAoE(Vector3 targetTile, int radius)
+    {
+        List<Vector3> effectedTiles = new List<Vector3>();
+        for(int newSpace=1;newSpace<radius+1;newSpace++)
+        {
+            effectedTiles.Add(new Vector3(targetTile.x+newSpace, targetTile.y));
+            effectedTiles.Add(new Vector3(targetTile.x, targetTile.y+newSpace));
+            effectedTiles.Add(new Vector3(targetTile.x-newSpace, targetTile.y));
+            effectedTiles.Add(new Vector3(targetTile.x, targetTile.y-newSpace));
+        }
+        return effectedTiles;
+    }
 }
