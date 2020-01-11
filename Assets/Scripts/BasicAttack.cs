@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeAttack : Attack
+public class BasicAttack : Attack
 {
     private Pathfinding pathfinding;
     private int range;
-    public RangeAttack(int newDamage,int newAccuracy, int newRange):base(newDamage,newAccuracy)
+
+    public BasicAttack(int newDamage, int newAccuracy, int newRange) : base(newDamage, newAccuracy)
     {
         damage = newDamage;
         accuracy = newAccuracy;
@@ -16,7 +17,7 @@ public class RangeAttack : Attack
     public void MakeAttack(Character attacker, Enemy defender)
     {
         int numberOfSpaces = pathfinding.CheckRange(attacker.transform.position, defender.transform.position);
-        if(numberOfSpaces<=range)
+        if (numberOfSpaces <= range)
         {
             MakeAttack(defender);
         }
