@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int dodge = 0;
 
+    private bool isTurn = false;
+
     public int GetAP()
     {
         return actionPoints;
@@ -55,5 +57,10 @@ public class Enemy : MonoBehaviour
     public int GetDodge()
     {
         return dodge;
+    }
+
+    public void ChangeTurn(bool active)
+    {
+        isTurn = active;
     }
 }

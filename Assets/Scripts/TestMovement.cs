@@ -122,6 +122,7 @@ public class TestMovement : MonoBehaviour
                 {
                     tilesMovedOn.RemoveAt(x);
                     tempAP += movementCost;
+                    movingCharacter.UpdateAP(tempAP);
                 }
                 transform.position = newPosition; //Move the character to the tile
             }
@@ -130,6 +131,7 @@ public class TestMovement : MonoBehaviour
                 tilesMovedOn.Add(newPosition); //add the position of the tile moved on to the list
                 transform.position = newPosition; //Move the character to the tile
                 tempAP -= movementCost; //Subtract the cost of movement from this turns AP use. 
+                movingCharacter.UpdateAP(tempAP);
             }
             Debug.Log(tempAP);
         }

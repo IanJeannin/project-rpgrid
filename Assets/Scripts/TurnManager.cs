@@ -13,6 +13,8 @@ public class TurnManager : MonoBehaviour
     [Tooltip("The multiplier for AP difference conversion to percentage. 10 makes 1 AP =10% more likely to go first.")]
     [SerializeField]
     private float apWeight;
+    [SerializeField]
+    private GameObject activePanel; 
 
     private int lastFirstEnemyIndex; //Stores index of the first enemy to move
     private int lastSecondEnemyIndex; //Stores index of the second enemy to move
@@ -107,10 +109,27 @@ public class TurnManager : MonoBehaviour
         if(currentObjectsTurn==3)
         {
             SetOrder();
+            ChangeActive(true);
+        }
+        else
+        { 
+            //Deactivates the current unit and activates the next unit
+            ChangeActive(false);
+            currentObjectsTurn++;
+            ChangeActive(true);
+            //activePanel.GetComponent<RectTransform>().localPosition.y -= 70;
+        }
+    }
+
+    public void ChangeActive(bool status)
+    {
+        if(currentTurnOrder[currentObjectsTurn].GetComponent<Character>()!=null)
+        {
+            currentTurnOrder[currentObjectsTurn].GetComponent<Character>().ChangeTurn(status);
         }
         else
         {
-            currentObjectsTurn++;
+            currentTurnOrder[currentObjectsTurn].GetComponent<Enemy>().ChangeTurn(status);
         }
     }
 }

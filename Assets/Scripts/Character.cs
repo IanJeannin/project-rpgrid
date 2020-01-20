@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -19,6 +20,18 @@ public class Character : MonoBehaviour
     private int dodge = 0;
     [SerializeField]
     private Enemy enemy;
+    [SerializeField]
+    private Text apCounter;
+
+    private bool isTurn = false;
+    private BasicAttack basicAttack;
+    private AoEAttack aoeAttack;
+    private LineAttack lineAttack;
+
+    private void Start()
+    {
+        BasicAttack stab = new BasicAttack(5, 5, 1);
+    }
 
     public int GetAP()
     {
@@ -28,10 +41,12 @@ public class Character : MonoBehaviour
     public void AdjustAP(int adjustment)
     {
         actionPoints = actionPoints + adjustment;
+        apCounter.text = actionPoints.ToString();
     }
     public void UpdateAP(int update)
     {
         actionPoints = update;
+        apCounter.text = ""+actionPoints.ToString();
     }
     public float GetPositionX()
     {
@@ -73,7 +88,7 @@ public class Character : MonoBehaviour
         defense += 1;
         AdjustAP(-4);
     }
-    //gives the otehr player a boost to their defense
+    //gives the other player a boost to their defense
     //public void Protection (Other Player2)
     //{
     //    Player2.defense += 1;
@@ -83,5 +98,10 @@ public class Character : MonoBehaviour
     public int GetDodge()
     {
         return dodge;
+    }
+
+    public void ChangeTurn(bool active)
+    {
+        isTurn = active;
     }
 }

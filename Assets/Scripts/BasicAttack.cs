@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BasicAttack : Attack
 {
+    [Tooltip("Prefab that displays attacked spaces.")]
+    [SerializeField]
+    private GameObject attackedTileDisplay;
+
     private Pathfinding pathfinding;
     protected int range;
 
