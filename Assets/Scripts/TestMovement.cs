@@ -40,71 +40,73 @@ public class TestMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        //At start of turn, AP of the character is stored in a temporary variable
-        if (startOfTurn == true)
+        if (this.GetComponent<Character>().GetActiveStatus() == true)
         {
-            startOfTurn = false;
-            Vector2 startingPosition = new Vector2(transform.position.x, transform.position.y);
-            tilesMovedOn.Add(startingPosition); //Adds starting position to list of tiles moved on this turn. (This is so if the player moves back to their starting position, their ap used during movement will be restored)
-            tempAP = movingCharacter.GetAP();
-        }
-        if (tempAP <= 0)
-        {
-            isTurn = false;
-        }
-        //As long it is this objects turn
-        if (isTurn == true)
-        {
-            xMovement = Input.GetAxisRaw("Horizontal");
-            yMovement = Input.GetAxisRaw("Vertical");
-
-            if (pauseMovement != true)
+            //At start of turn, AP of the character is stored in a temporary variable
+            if (startOfTurn == true)
             {
-                if (xMovement != 0)
-                {
-                    yMovement = 0; //Makes sure that only horizontal movement is calculated
-                    Move(xMovement, yMovement);
-                }
-                else if (yMovement != 0)
-                {
-                    xMovement = 0; //Ensures only vertical movement is calculated
-                    Move(xMovement, yMovement);
-                }
+                startOfTurn = false;
+                Vector2 startingPosition = new Vector2(transform.position.x, transform.position.y);
+                tilesMovedOn.Add(startingPosition); //Adds starting position to list of tiles moved on this turn. (This is so if the player moves back to their starting position, their ap used during movement will be restored)
+                tempAP = movingCharacter.GetAP();
             }
-            if (Input.GetMouseButtonDown(0))
+            if (tempAP <= 0)
             {
-                foreach (Transform child in pathMarkers.transform)
+                isTurn = false;
+            }
+            //As long it is this objects turn
+            if (isTurn == true)
+            {
+                xMovement = Input.GetAxisRaw("Horizontal");
+                yMovement = Input.GetAxisRaw("Vertical");
+
+                if (pauseMovement != true)
                 {
-                    Destroy(child.gameObject);
-                }
-                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                if (groundTilemap.GetTile(groundTilemap.WorldToCell(mousePosition)) != null)
-                {
-                    Vector3 startingPosition = new Vector3(transform.position.x, transform.position.y);
-                    Vector3Int endTilePosition = groundTilemap.WorldToCell(mousePosition);
-                    Vector3 endPosition = groundTilemap.GetCellCenterWorld(endTilePosition);
-                    if (startingPosition != endPosition) //Ensure the player can't click the same tile they are on. 
+                    if (xMovement != 0)
                     {
-                        List<Vector3> shortestPath = pathfinding.FindShortestPath(startingPosition, endPosition);
-                        if (shortestPath != null&&shortestPath.Count-1<=tempAP) //Does not move if there is no path or the tile is out of range
+                        yMovement = 0; //Makes sure that only horizontal movement is calculated
+                        Move(xMovement, yMovement);
+                    }
+                    else if (yMovement != 0)
+                    {
+                        xMovement = 0; //Ensures only vertical movement is calculated
+                        Move(xMovement, yMovement);
+                    }
+                }
+                if (Input.GetMouseButtonDown(0))
+                {
+                    foreach (Transform child in pathMarkers.transform)
+                    {
+                        Destroy(child.gameObject);
+                    }
+                    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    if (groundTilemap.GetTile(groundTilemap.WorldToCell(mousePosition)) != null)
+                    {
+                        Vector3 startingPosition = new Vector3(transform.position.x, transform.position.y);
+                        Vector3Int endTilePosition = groundTilemap.WorldToCell(mousePosition);
+                        Vector3 endPosition = groundTilemap.GetCellCenterWorld(endTilePosition);
+                        if (startingPosition != endPosition) //Ensure the player can't click the same tile they are on. 
                         {
-                            foreach (Vector3 tile in shortestPath)
+                            List<Vector3> shortestPath = pathfinding.FindShortestPath(startingPosition, endPosition);
+                            if (shortestPath != null && shortestPath.Count - 1 <= tempAP) //Does not move if there is no path or the tile is out of range
                             {
-                                Instantiate(passedTile, tile, transform.rotation, pathMarkers.transform);
+                                foreach (Vector3 tile in shortestPath)
+                                {
+                                    Instantiate(passedTile, tile, transform.rotation, pathMarkers.transform);
+                                }
+                                tempAP -= shortestPath.Count - 1;
+                                Vector3Int tilePosition = groundTilemap.WorldToCell(mousePosition);
+                                ClickMove(tilePosition);
+                                Debug.Log("CurrentAP: " + tempAP);
                             }
-                            tempAP-=shortestPath.Count - 1;
-                            Vector3Int tilePosition = groundTilemap.WorldToCell(mousePosition);
-                            ClickMove(tilePosition);
-                            Debug.Log("CurrentAP: " + tempAP);
                         }
                     }
                 }
             }
-        }
-        else
-        {
-            turnManager.GetComponent<TurnManager>().NextTurn();
+            else
+            {
+                turnManager.GetComponent<TurnManager>().NextTurn();
+            }
         }
     }
 

@@ -24,6 +24,7 @@ public class TurnManager : MonoBehaviour
     private void Start()
     {
         currentTurnOrder=SetOrder();
+        ChangeActive(true);
     }
 
     //returns a list of the active game objects in turn order. 
@@ -108,7 +109,7 @@ public class TurnManager : MonoBehaviour
     {
         if(currentObjectsTurn==3)
         {
-            SetOrder();
+            currentTurnOrder=SetOrder();
             ChangeActive(true);
         }
         else
@@ -131,5 +132,6 @@ public class TurnManager : MonoBehaviour
         {
             currentTurnOrder[currentObjectsTurn].GetComponent<Enemy>().ChangeTurn(status);
         }
+        Debug.Log(currentTurnOrder[currentObjectsTurn]);
     }
 }

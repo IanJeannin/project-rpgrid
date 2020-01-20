@@ -100,6 +100,10 @@ public class Character : MonoBehaviour
         return dodge;
     }
 
+    public bool GetActiveStatus()
+    {
+        return isTurn;
+    }
     public void ChangeTurn(bool active)
     {
         isTurn = active;

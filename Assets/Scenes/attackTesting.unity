@@ -616,7 +616,7 @@ MonoBehaviour:
   - {fileID: 347297073}
   - {fileID: 1367064784}
   characterOne: {fileID: 261591073}
-  characterTwo: {fileID: 261591073}
+  characterTwo: {fileID: 510619100}
   apWeight: 0
   activePanel: {fileID: 0}
 --- !u!4 &118594205
@@ -1208,6 +1208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 347297075}
   - component: {fileID: 347297074}
+  - component: {fileID: 347297076}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -1282,6 +1283,23 @@ RectTransform:
   m_AnchoredPosition: {x: -4.1345015, y: 1.3308636}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &347297076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347297073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755360c962e5c95459f4c13d6597366a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 10
+  actionPoints: 5
+  damage: 1
+  defense: 1
+  dodge: 0
 --- !u!1 &406807326
 GameObject:
   m_ObjectHideFlags: 0
@@ -2538,7 +2556,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000015259, y: 344.5}
+  m_AnchoredPosition: {x: -0.000015258789, y: 344.5}
   m_SizeDelta: {x: -159.4, y: -715.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1124848122
@@ -3777,6 +3795,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1367064786}
   - component: {fileID: 1367064785}
+  - component: {fileID: 1367064787}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -3851,6 +3870,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0.8654988, y: 1.3308636}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1367064787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367064784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755360c962e5c95459f4c13d6597366a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 10
+  actionPoints: 5
+  damage: 1
+  defense: 1
+  dodge: 0
 --- !u!1 &1382767283
 GameObject:
   m_ObjectHideFlags: 0
